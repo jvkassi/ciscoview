@@ -26,8 +26,13 @@
  *
  */
 
-module.exports.routes = {
+ module.exports.routes = {
 
+  
+  // 'get /users/:id?': 'UsersController.find',
+  //  '/': {
+  //   cors: true
+  // },
   /*
   // By default, your root route (aka home page) points to a view
   // located at `views/home/index.ejs`

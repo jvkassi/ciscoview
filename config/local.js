@@ -55,15 +55,15 @@ module.exports = {
   environment: process.env.NODE_ENV || 'development',
 
   // Override global adapters configuration
-  adapters: {
-      'default': 'mongo', // Overrides the default 'disk'
+  // adapters: {
+  //     'default': 'mongo', // Overrides the default 'disk'
 
-      mongo: {
-        host: 'localhost',
-        user: '',
-        password: '',
-        database: 'sails-api-angular'
-      }
-  }
+  //     mongo: {
+  //       host: 'localhost',
+  //       user: '',
+  //       password: '',
+  //       database: 'sails'
+  //     }
+  // }
 
 };

@@ -82,7 +82,12 @@ module.exports = function (grunt) {
                     context: '/api',
                     host: 'localhost',
                     port: 1337
-                }
+                },
+                //  {
+                //     context: '/socket.io',
+                //     host: 'localhost',
+                //     port: 1337
+                // }
             ],
             livereload: {
                 options: {
