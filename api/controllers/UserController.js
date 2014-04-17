@@ -29,103 +29,103 @@ module.exports = {
     //    res.json(user);
     //  })
     // },
-    create: function(req, res, next) {
+    // create: function(req, res, next) {
 
-        var userObj = {
-            name: req.param('name'),
-            title: req.param('title'),
-            email: req.param('email'),
-            online: req.param('online') || 0,
-            password: req.param('password'),
-            confirmation: req.param('confirmation')
-        }
+    //     var userObj = {
+    //         name: req.param('name'),
+    //         title: req.param('title'),
+    //         email: req.param('email'),
+    //         online: req.param('online') || 0,
+    //         password: req.param('password'),
+    //         confirmation: req.param('confirmation')
+    //     }
 
-        // Create a User with the params sent from 
-        // the sign-up form --> new.ejs
-        User.create(userObj, function userCreated(err, user) {
+    //     // Create a User with the params sent from 
+    //     // the sign-up form --> new.ejs
+    //     User.create(userObj, function userCreated(err, user) {
 
-            // // If there's an error
-            // if (err) return next(err);
+    //         // // If there's an error
+    //         // if (err) return next(err);
 
-            if (err) return next(err)
-            console.log(err);
-            req.session.flash = {
-                err: err
-            }
+    //         if (err) return next(err)
+    //         console.log(err);
+    //         req.session.flash = {
+    //             err: err
+    //         }
 
-            user.save(function(err, user) {
-                if (err) return next(err);
-                // Let other subscribed sockets know that the user was created.
-                User.publishCreate(user);
+    //         user.save(function(err, user) {
+    //             if (err) return next(err);
+    //             // Let other subscribed sockets know that the user was created.
+    //             User.publishCreate(user);
 
-                res.json(user)
+    //             res.json(user)
 
-            });
-        });
-    },
-    find: function(req, res, next) {
-        var id = req.param('id');
-        // var idShortCut = isShortcut(id);
+    //         });
+    //     });
+    // },
+    // find: function(req, res, next) {
+    //     var id = req.param('id');
+    //     // var idShortCut = isShortcut(id);
 
-        // if(idShortCut == true) {
-        //  return next();
-        // }
-        if (id) {
-            User.findOne(id, function(err, user) {
-                if (user === undefined) res.notFound()
-                if (err) next(err);
-                res.json(user);
-            })
-        } else {
-            var where = req.param('where');
-            if (_.isString(where)) {
-                where = JSON.parse(where);
-            }
+    //     // if(idShortCut == true) {
+    //     //  return next();
+    //     // }
+    //     if (id) {
+    //         User.findOne(id, function(err, user) {
+    //             if (user === undefined) res.notFound()
+    //             if (err) next(err);
+    //             res.json(user);
+    //         })
+    //     } else {
+    //         var where = req.param('where');
+    //         if (_.isString(where)) {
+    //             where = JSON.parse(where);
+    //         }
 
-            var options = {
-                limit: req.param('limit') || undefined,
-                skip: req.param('skip') || undefined,
-                sort: req.param('sort') || undefined,
-                where: where || undefined,
-            }
+    //         var options = {
+    //             limit: req.param('limit') || undefined,
+    //             skip: req.param('skip') || undefined,
+    //             sort: req.param('sort') || undefined,
+    //             where: where || undefined,
+    //         }
 
-            // console.log("Options : ", options)
-            User.find(options, function(err, user) {
-                if (user === undefined) return res.notFound()
-                if (err) return next(err);
-                res.json(user)
-            })
+    //         // console.log("Options : ", options)
+    //         User.find(options, function(err, user) {
+    //             if (user === undefined) return res.notFound()
+    //             if (err) return next(err);
+    //             res.json(user)
+    //         })
 
-        }
-    },
-    update: function(req, res, next) {
-        var criteria = _.merge({}, req.params.all(), req.body);
+    //     }
+    // },
+    // update: function(req, res, next) {
+    //     var criteria = _.merge({}, req.params.all(), req.body);
 
-        var id = req.param('id');
+    //     var id = req.param('id');
 
 
-        if (!id) {
-            return res.badRequest('No id provided.');
+    //     if (!id) {
+    //         return res.badRequest('No id provided.');
 
-        }
-        User.update(id, criteria, function(err, user) {
-            if (user.length === 0) return res.notFound();
-            if (err) return next(err);
+    //     }
+    //     User.update(id, criteria, function(err, user) {
+    //         if (user.length === 0) return res.notFound();
+    //         if (err) return next(err);
             
-            res.json(user);
-        });
-    },
+    //         res.json(user);
+    //     });
+    // },
 
     subscribe: function(req, res) {
-
+        console.log("subscribing..")
         // Find all current users in the user model
         User.find(function foundUsers(err, users) {
             if (err) return next(err);
 
-            // subscribe this socket to the User model classroom
-            User.subscribe(req.socket);
+            // subscribe this socket to new create users
+            User.watch(req.socket);
 
-            // subscribe this socket to the user instance rooms
+            // subscribe this socket to existing users
             User.subscribe(req.socket, users);
 
             // This will avoid a warning from the socket for trying to render
@@ -134,25 +134,25 @@ module.exports = {
         });
     },
 
-    destroy: function(req, res, next) {
+    // destroy: function(req, res, next) {
 
-        User.findOne(req.param('id'), function foundUser(err, user) {
-            if (err) return next(err);
+    //     User.findOne(req.param('id'), function foundUser(err, user) {
+    //         if (err) return next(err);
 
-            if (!user) return next('User doesn\'t exist.');
+    //         if (!user) return next('User doesn\'t exist.');
 
-            User.destroy(req.param('id'), function userDestroyed(err) {
-                if (err) return next(err);
+    //         User.destroy(req.param('id'), function userDestroyed(err) {
+    //             if (err) return next(err);
 
-                // Let other sockets know that the user instance was destroyed.
-                User.publishDestroy(user.id);
+    //             // Let other sockets know that the user instance was destroyed.
+    //             User.publishDestroy(user.id);
 
-            });
+    //         });
 
-            res.json(user);
+    //         res.json(user);
 
-        });
-    },
+    //     });
+    // },
 
 
 

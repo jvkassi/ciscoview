@@ -24,7 +24,7 @@ module.exports = {
         console.log(req.session);
         res.send(200, '');
     },
-    find: function(req, res) {
+    start: function(req, res) {
 
         res.send(200, '');
     },
@@ -86,7 +86,10 @@ module.exports = {
                     if (err) return next(err);
 
                     // Inform other sockets (e.g. connected sockets that are subscribed) that this user is now logged in
-                    User.publishUpdate(user.id, user);
+                    User.publishUpdate(user.id, {
+                        online: true,
+                        name: user.name,
+                    });
                 });
 
                 var connected = {
@@ -114,26 +117,28 @@ module.exports = {
                     if (err) return next(err);
 
                     // Inform other sockets (e.g. connected sockets that are subscribed) that the session for this user has ended.
-                    User.publishUpdate(userId, {
-                        loggedIn: false,
-                        id: userId,
+                    User.publishUpdate(user.id, {
+                        online: false,
                         name: user.name,
-                        action: ' has logged out.'
                     });
 
                     // Wipe out the session (log out)
-                    req.session.destroy();
+                    req.session.authenticated = false;
+                    req.session.User = {};
+                    req.session.save()
+                    console.log(req.session)
 
-                    // Redirect the browser to the sign-in screen
-                    res.redirect('/session/new');
                 });
+                res.send(200)
             } else {
 
                 // Wipe out the session (log out)
-                req.session.destroy();
+                req.session.authenticated = false;
+                req.session.User = {};
+                req.session.save();
 
                 // Redirect the browser to the sign-in screen
-                res.redirect('/session/new');
+                res.send(200)
             }
         });
     },

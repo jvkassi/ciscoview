@@ -1,39 +1,22 @@
 'use strict';
 
-Application.Services.service('userService', ['$sails',
-    function User(socket) {
+Application.Services.factory('UserService', ['$sails', 'GenericService',
+    function User(socket, generic) {
 
-        socket.on('connect', function() {
-            socket.get('/api/users/subscribe')
-        })
+        var User = {};
+        inherit(User, generic)
 
-        this.info = function(id) {
-            return socket.get('/api/users/' + id);
-        }
-        this.list = function() {
-            return socket.get('/api/users')
-        }
+        User.init('user');
 
-        this.onMessage = function(cb) {
-            socket.on('message', cb);
-        }
-
-        this.create = function(data) {
-            return socket.post('/api/users', data);
-        }
-
-        this.delete = function(data) {
-            return socket.delete('/api/users', data);
-        }
-
-        this.put = function(data) {
-
-            return socket.put('/api/users', data);
-        }
-
-        this.login = function(data) {
+        User.login = function(data) {
             return socket.post('/api/sessions', data);
         }
+
+        User.logout = function(data) {
+            return socket.delete('/api/sessions');
+        }
+
+        return User;
 
     }
 ]);

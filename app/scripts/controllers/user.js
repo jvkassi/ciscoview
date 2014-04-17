@@ -1,35 +1,37 @@
 'use strict';
 
-function getById(arr, id) {
-    for (var d = 0, len = arr.length; d < len; d += 1) {
-        if (arr[d].id === id) {
-            return d;
-        }
-    }
-}
-Application.Controllers.controller('UserCtrl', ['$scope', 'userService', '$sails',
-    function($scope, User, socket) {
-       
 
-        User.onMessage(function(res) {
-            // console.log(res);
-            if (res.verb === 'create') {
+Application.Controllers.controller('UserCtrl', ['$scope', 'UserService', '$state',
+    function($scope, User, $state) {
+
+        User.subscribe();
+        // console.log(User);
+        User.onEvent(function(res) {
+            console.log(res);
+            if (res.verb === 'created') {
                 $scope.users.push(res.data);
-            } else if (res.verb === 'destroy') {
+            } else if (res.verb === 'destroyed') {
                 var user_id = res.id;
                 var id = getById($scope.users, user_id);
                 $scope.users.pop(id);
-            } else if (res.verb === 'update') {
+            } else if (res.verb === 'updated') {
                 var user_id = res.id;
                 var id = getById($scope.users, user_id);
                 $scope.users[id] = res.data;
             }
         })
 
-        User.list().success(function(data) {
-            // console.log(data);
-            $scope.users = data;
-            // $scope.test = data;
-        });
+        var displayUsers = function() {
+            User.list().success(function(data) {
+                if(data.err &&  data.code == 403 ) $state.go('login') 
+                $scope.users = data;
+                // $scope.test = data;
+            })
+                .error(function(data) {
+                    console.log(data);
+                })
+        }
+        displayUsers();
+        User.onReconnect(displayUsers);
     }
 ]);

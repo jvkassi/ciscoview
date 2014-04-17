@@ -18,5 +18,9 @@ module.exports = {
         auth: {
             model: 'auth'
         },
+        connected: {
+        	type: 'boolean',
+        	defaultsTo: false
+        },
     }
 };

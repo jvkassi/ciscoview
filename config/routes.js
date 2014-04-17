@@ -28,10 +28,14 @@
 
  module.exports.routes = {
 
-  
+  'get /api/sessions': 'SessionController.start',
+  'post /api/sessions': 'SessionController.create',
+  'delete /api/sessions': 'SessionController.destroy',
+  // 'get /apiosessions': 'SessionController.start',
   // 'get /users/:id?': 'UsersController.find',
   //  '/': {
   //   cors: true
+
   // },
   /*
   // By default, your root route (aka home page) points to a view

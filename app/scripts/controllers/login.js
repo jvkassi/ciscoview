@@ -1,7 +1,7 @@
 'use strict';
 
 
-Application.Controllers.controller('LoginCtrl', ['$scope', 'userService',
+Application.Controllers.controller('LoginCtrl', ['$scope', 'UserService',
     function($scope, User) {
 
         $scope.login = function() {
