@@ -7,13 +7,13 @@
 
 module.exports = {
 
+	tableName: 'connections',
     attributes: {
 
     	// one to many routers
         router: {
             model: 'router'
         },
-
         // one to many auth
         auth: {
             model: 'auth'
@@ -21,6 +21,10 @@ module.exports = {
         connected: {
         	type: 'boolean',
         	defaultsTo: false
+        },
+        port: {
+        	type: 'integer',
+        	defaultsTo: '22'
         },
     }
 };

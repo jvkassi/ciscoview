@@ -6,15 +6,14 @@
  */
 
 module.exports = {
-
+    tableName: 'auths',
     attributes: {
 
-    	// one to many user
+        // one to many user
         user: {
             model: 'user'
         },
-
-        login: {
+        username: {
             type: 'string',
             required: true
         },
@@ -22,5 +21,8 @@ module.exports = {
             type: 'string',
             required: true
         },
+        secret: {
+            type: 'string'
+        }
     }
 };

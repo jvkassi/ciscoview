@@ -30,13 +30,12 @@
       <script src="bower_components/json3/lib/json3.min.js"></script>
       <![endif]-->
 
-    <!-- NAVIGATION BAR -->
-    <header></header>
-    <!-- /END OF NAVIGATION BAR -->
+
 
     <!-- Add your site or application content here -->
-    <div class="container" ui-view >
-       
+    <div class="container ui-view-container">
+        <div class="content" ui-view style ></div>
+
     </div>
     <!-- FOOTER -->
     <div class="container">
@@ -48,6 +47,7 @@
 
     <!-- build:js scripts/modules.js -->
     <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
     <script src="bower_components/socket.io-client/dist/socket.io.js"></script>
     <script src="bower_components/bower-sails.io/sails.io.js"></script>
     <script src="bower_components/angular-sails/dist/angular-sails.js"></script>
@@ -60,13 +60,17 @@
     <script src="scripts/app.js"></script>
     <script src="scripts/services/Generic.js"></script>
     <script src="scripts/services/User.js"></script>
+    <script src="scripts/services/Router.js"></script>
+    <script src="scripts/services/Connection.js"></script>
     <script src="scripts/controllers/main.js"></script>
     <script src="scripts/controllers/header.js"></script>
     <script src="scripts/directives/header.js"></script>
     <script src="scripts/controllers/user.js"></script>
+
     <script src="scripts/controllers/login.js"></script>
 
     <!-- endbuild -->
+    <script src="http://mymaplist.com/js/vendor/TweenLite.min.js"></script>
 </body>
 
 </html>

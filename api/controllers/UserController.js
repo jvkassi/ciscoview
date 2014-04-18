@@ -133,6 +133,9 @@ module.exports = {
             res.send(200);
         });
     },
+    // info: function(req, res) {
+    //     User.findOne(req.socket.)
+    // },
 
     // destroy: function(req, res, next) {
 

@@ -16,6 +16,10 @@ Application.Services.factory('UserService', ['$sails', 'GenericService',
             return socket.delete('/api/sessions');
         }
 
+        User.currentUser = function() {
+            return socket.get('/api/users/currentUser')
+        }
+
         return User;
 
     }

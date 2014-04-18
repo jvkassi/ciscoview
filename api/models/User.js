@@ -33,6 +33,10 @@ module.exports = {
             type: 'boolean',
             defaultsTo: 'false'
         },
+        role: {
+            type: 'string',
+            defaultsTo: 'user'
+        },
 
         // routers: {
         //     collection: 'routers',

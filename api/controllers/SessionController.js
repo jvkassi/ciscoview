@@ -124,7 +124,7 @@ module.exports = {
 
                     // Wipe out the session (log out)
                     req.session.authenticated = false;
-                    req.session.User = {};
+                    req.session.User = null;
                     req.session.save()
                     console.log(req.session)
 

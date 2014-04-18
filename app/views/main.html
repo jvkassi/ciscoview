@@ -1,4 +1,33 @@
+<!-- NAVIGATION BAR -->
+<header></header>
+<!-- /END OF NAVIGATION BAR -->
+<div class="container row maxH">
+    <div class="col-xs-2 box">
+        <table class="table">
+            <tr ng-repeat="router in routers">
+                <td>{{router.name}}</td>
+                <td>{{router.ip}}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-xs-10 box">
+        <div>
+            <h1>Connection</h1>
+            <div id="shell">
+                <div>
+                    <textarea id="output" name="output" ng-model="output" ng-change="scroll()">
 
-<div class="jumbotron" >
-    <h1>Hello please login</h1>
+                    </textarea>
+                </div>
+                <form class="form-inline" role="form" ng-submit="sendCmd()">
+                    <input id="cmd" name="cmd" ng-model="cmd" placeholder="Entrez votre commande">
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
+
+<footer></footer>
+<script>
+
+</script>

@@ -19,10 +19,9 @@ module.exports = {
         },
 
         ip: {
-            type: 'string',
+            type: 'ip',
             required: true,
             unique: true,
-            ip: true
         },
 
         // users: {
