@@ -9,9 +9,12 @@ module.exports = {
     tableName: 'auths',
     attributes: {
 
+        name: {
+            type: 'string'
+        },
         // one to many user
         user: {
-            model: 'user'
+            model: 'user',
         },
         username: {
             type: 'string',

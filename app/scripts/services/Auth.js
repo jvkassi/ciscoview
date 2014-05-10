@@ -1,13 +1,11 @@
 'use strict';
 
-Application.Services.factory('AuthService', ['$sails', 'GenericService',
-    function Auth(socket, generic) {
+Application.Services.factory('Auth', ['$sails', 'GenericService',
+    function (socket, generic) {
 
         var Auth = {};
-        inherit(Auth, generic)
-
+        inherit(Auth, generic);
         Auth.init('auth');
-
         return Auth;
 
     }

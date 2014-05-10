@@ -21,6 +21,7 @@ module.exports.blueprints = {
     // (the automatically bound routes in your controllers)
     // e.g. '/api/v2'
     prefix: '/api',
+    populate: true,
 
 
     // Whether routes are automatically generated for every action in your controllers

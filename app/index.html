@@ -1,26 +1,63 @@
-<!doctype html>
+<!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!-->
-<html class="no-js">
+<html class="no-js" ng-app="CiscoView">
 <!--<![endif]-->
 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title></title>
+    <title>Cisco View</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
     <!-- build:css({.yo,app}) styles/main.css -->
-    <link rel="stylesheet" href="bower_components/bootstrap-css-only/css/bootstrap.css">
+    <link rel="stylesheet" href="bower_components/patternfly/dist/css/patternfly.css">
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
+    <!-- build:js scripts/modules.js -->
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>
+    <script src="bower_components/socket.io-client/dist/socket.io.js"></script>
+    <script src="bower_components/bower-sails.io/sails.io.js"></script>
+    <script src="bower_components/angular-sails/dist/angular-sails.js"></script>
+    <script src="bower_components/angular-socket-io/socket.js"></script>
+    <script src="bower_components/ng-table/ng-table.min.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <!-- endbuild -->
+
+    <!-- build:js({.yo,app}) scripts/scripts.js -->
+    <script src="scripts/controllers/common.js"></script>
+    <script src="scripts/app.js"></script>
+    <script src="scripts/services/Generic.js"></script>
+    <script src="scripts/services/User.js"></script>
+    <script src="scripts/services/Equipment.js"></script>
+    <script src="scripts/services/Auth.js"></script>
+    <script src="scripts/services/Command.js"></script>
+    <script src="scripts/services/Connection.js"></script>
+    <script src="scripts/services/Role.js"></script>
+    <script src="scripts/controllers/equipment.js"></script>
+    <script src="scripts/controllers/setting.js"></script>
+    <script src="scripts/controllers/role.js"></script>
+    <script src="scripts/controllers/command.js"></script>
+    <script src="scripts/controllers/header.js"></script>
+    <script src="scripts/controllers/dashboard.js"></script>
+    <!-- // <script src="scripts/directives/header.js"></script> -->
+    <!-- // <script src="scripts/directives/footer.js"></script> -->
+    <script src="scripts/controllers/user.js"></script>
+    <script src="scripts/controllers/shell.js"></script>
+    <script src="scripts/controllers/login.js"></script>
+    <script src="scripts/controllers/connection.js"></script>
+    <script src="scripts/controllers/auth.js"></script>
+    <!-- endbuild -->
+
 </head>
 
-<body ng-app="sailsApiAngularApp">
+<body>
+
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
       <![endif]-->
@@ -30,47 +67,11 @@
       <script src="bower_components/json3/lib/json3.min.js"></script>
       <![endif]-->
 
+      <!-- NAVIGATION BAR -->
+      <header ui-view="header"></header>
+      <!-- /END OF NAVIGATION BAR -->
+      <div ui-view="container" class="container-fluid"> </div>
 
+  </body>
 
-    <!-- Add your site or application content here -->
-    <div class="container ui-view-container">
-        <div class="content" ui-view style ></div>
-
-    </div>
-    <!-- FOOTER -->
-    <div class="container">
-        <footer>
-            <p>Copyright &copy; 2013</p>
-        </footer>
-    </div>
-    <!-- /END OF FOOTER -->
-
-    <!-- build:js scripts/modules.js -->
-    <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/angular-animate/angular-animate.js"></script>
-    <script src="bower_components/socket.io-client/dist/socket.io.js"></script>
-    <script src="bower_components/bower-sails.io/sails.io.js"></script>
-    <script src="bower_components/angular-sails/dist/angular-sails.js"></script>
-    <script src="bower_components/angular-socket-io/socket.js"></script>
-    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-    <!-- endbuild -->
-
-    <!-- build:js({.yo,app}) scripts/scripts.js -->
-    <script src="scripts/controllers/common.js"></script>
-    <script src="scripts/app.js"></script>
-    <script src="scripts/services/Generic.js"></script>
-    <script src="scripts/services/User.js"></script>
-    <script src="scripts/services/Router.js"></script>
-    <script src="scripts/services/Connection.js"></script>
-    <script src="scripts/controllers/main.js"></script>
-    <script src="scripts/controllers/header.js"></script>
-    <script src="scripts/directives/header.js"></script>
-    <script src="scripts/controllers/user.js"></script>
-
-    <script src="scripts/controllers/login.js"></script>
-
-    <!-- endbuild -->
-    <script src="http://mymaplist.com/js/vendor/TweenLite.min.js"></script>
-</body>
-
-</html>
+  </html>

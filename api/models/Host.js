@@ -8,27 +8,28 @@
 
 module.exports = {
 
-    tableName: 'routers',
+    tableName: 'hosts',
     // connection: 'mongo',
-
     attributes: {
-
         name: {
             type: 'string',
             required: true
         },
-
         ip: {
             type: 'ip',
             required: true,
             unique: true,
         },
-
+        vendor: {
+            type: 'string'
+        },
+        secret: {
+            type: 'string'
+        },
         // users: {
         // 	collection: 'users',
         // 	via: 'router'
         // },
-
         toJSON: function() {
             var obj = this.toObject();
             // delete obj.encryptedPassword;
@@ -36,11 +37,5 @@ module.exports = {
             return obj;
         }
     },
-
-    afterUpdate: function(values, next) {
-        // console.log(values);
-        Router.publishUpdate(values.id, values);
-        next()
-    }
 
 };

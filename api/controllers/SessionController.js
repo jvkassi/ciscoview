@@ -17,46 +17,47 @@
 var bcrypt = require('bcrypt');
 module.exports = {
 
-    new: function(req, res) {
+    new: function(req, res, next) {
         var expir = new Date((new Date).getTime() + 4000)
         req.session.cookie.expires = expir;
         // req.session.authenticated = true;
         console.log(req.session);
         res.send(200, '');
     },
-    start: function(req, res) {
-
-        res.send(200, '');
+    start: function(req, res, next) {
+        if (req.session.User) {
+            var id = req.session.User.id;
+        } else {
+            id = null;
+        }
+        // req.socket.emit('id', {
+        //     id: id
+        // })
+        res.json({
+            id: id
+        });
     },
-    create: function(req, res) {
+    create: function(req, res, next) {
         console.log('Creating sessions ' + req.param('email') + req.param('password'));
 
         if (!req.param('email') || !req.param('password')) {
-            var usernamePasswordRequiredError = {
-                name: 'usernamePasswordRequired',
-                message: 'You must enter both a username and password.'
-            }
 
-            // Send error message
-            res.json(400, {
-                err: usernamePasswordRequiredError
+            // Send not found message
+            res.notFound({
+                code: 404
             })
             return;
         }
         // console.log('Search sessions ');
-        User.findOneByEmail(req.param('email'), function foundUser(err, user) {
+        User.findOneByEmail(req.param('email')).populate('role').exec(function foundUser(err, user) {
             if (err) return next(err);
-
+            console.log('user ' + user);
             // If no user is found...
             // console.log(user);
             if (!user) {
-                var noAccountError = {
-                    name: 'noAccount',
-                    message: 'The email address ' + req.param('email') + ' not found.'
-                }
-
-                res.json(400, {
-                    err: noAccountError
+                // res.notFound()
+                res.notFound({
+                    code: 404
                 })
                 return;
             }
@@ -86,17 +87,17 @@ module.exports = {
                     if (err) return next(err);
 
                     // Inform other sockets (e.g. connected sockets that are subscribed) that this user is now logged in
-                    User.publishUpdate(user.id, {
-                        online: true,
-                        name: user.name,
-                    });
+                    // User.publishUpdate(user.id, {
+                    //     online: true,
+                    //     name: user.name,
+                    // });
                 });
 
-                var connected = {
-                    current: user,
-                    connected: true
-                }
-                res.json(200, connected)
+                // var connected = {
+                //     current: user,
+                //     connected: true
+                // }
+                res.json(200, user)
                 return;
             });
 
@@ -105,42 +106,45 @@ module.exports = {
 
     destroy: function(req, res, next) {
 
-        User.findOne(req.session.User.id, function foundUser(err, user) {
+        if (req.session.User) {
+            User.findOne(req.session.User.id, function foundUser(err, user) {
 
-            var userId = req.session.User.id;
+                var userId = req.session.User.id;
 
-            if (user) {
-                // The user is "logging out" (e.g. destroying the session) so change the online attribute to false.
-                User.update(userId, {
-                    online: false
-                }, function(err) {
-                    if (err) return next(err);
+                if (user) {
+                    // The user is "logging out" (e.g. destroying the session) so change the online attribute to false.
+                    User.update(userId, {
+                        online: false
+                    }, function(err) {
+                        if (err) return next(err);
 
-                    // Inform other sockets (e.g. connected sockets that are subscribed) that the session for this user has ended.
-                    User.publishUpdate(user.id, {
-                        online: false,
-                        name: user.name,
+                        // Inform other sockets (e.g. connected sockets that are subscribed) that the session for this user has ended.
+                        // User.publishUpdate(user.id, {
+                        //     online: false,
+                        //     name: user.name,
+                        // });
+
+                        // Wipe out the session (log out)
+                        req.session.authenticated = false;
+                        req.session.User = null;
+                        req.session.save()
+                        console.log(req.session)
+
                     });
+                    res.send(200)
+                } else {
 
                     // Wipe out the session (log out)
                     req.session.authenticated = false;
-                    req.session.User = null;
-                    req.session.save()
-                    console.log(req.session)
+                    req.session.User = {};
+                    req.session.save();
 
-                });
-                res.send(200)
-            } else {
-
-                // Wipe out the session (log out)
-                req.session.authenticated = false;
-                req.session.User = {};
-                req.session.save();
-
-                // Redirect the browser to the sign-in screen
-                res.send(200)
-            }
-        });
+                    // Redirect the browser to the sign-in screen
+                    res.send(200)
+                }
+            });
+        }
+        res.send(200)
     },
     /**
      * Overrides for the settings in `config/controllers.js`

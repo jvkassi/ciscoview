@@ -9,12 +9,14 @@ module.exports = {
 
     tableName: 'logs',
     attributes: {
-
-        // one to many auth
+        // one to many connection
         connection: {
             model: 'connection'
         },
-        message: {
+        command: {
+            type: 'string'
+        },
+        output: {
             type: 'string'
         }
     }

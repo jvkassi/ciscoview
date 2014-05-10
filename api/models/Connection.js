@@ -7,24 +7,28 @@
 
 module.exports = {
 
-	tableName: 'connections',
+    tableName: 'connections',
     attributes: {
 
-    	// one to many routers
-        router: {
-            model: 'router'
+        // one to many routers
+        host: {
+            model: 'host'
         },
         // one to many auth
         auth: {
             model: 'auth'
         },
+        transport: {
+            type: 'string',
+            defaultsTo: 'ssh'
+        },
         connected: {
-        	type: 'boolean',
-        	defaultsTo: false
+            type: 'boolean',
+            defaultsTo: false
         },
         port: {
-        	type: 'integer',
-        	defaultsTo: '22'
+            type: 'integer',
+            defaultsTo: '22'
         },
     }
 };

@@ -1,0 +1,23 @@
+<table ng-table="tableParams" show-filter="true" class="table">
+    <tbody>
+        <tr ng-repeat="auth in $data">
+            <td data-title="'Username'" filter="{ 'Username': 'text' }" sortable="Username">
+                {{auth.username}}
+            </td>
+            <td data-title="'Password'">
+                {{auth.password}}
+            </td>
+            <td data-title="'Name'">
+                {{auth.name}}
+            </td>
+            <td data-title="'Actions'">
+                <a ng-click="delete(auth.id)" class="dropdown-toggle">
+                    <span class="pficon pficon-delete"></span>
+                </a>
+                <a ui-sref="root.settings.auths.edit({ id: auth.id})" class="dropdown-toggle">
+                    <span class="pficon pficon-edit"></span>
+                </a>
+            </td>
+        </tr>
+    </tbody>
+</table>

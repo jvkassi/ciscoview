@@ -1,0 +1,21 @@
+<!-- <span class="title">Commands</span> -->
+<table ng-table="tableParams" show-filter="true" class="table">
+    <tbody>
+        <tr ng-repeat="command in $data">
+            <td data-title="'Name'" filter="{ 'name': 'text' }" sortable="name">
+                {{command.name}}
+            </td>
+            <td data-title="'role'">
+                {{command.role.name}}
+            </td>
+             <td data-title="'action'">
+                <a ng-click="delete(command.id)" class="dropdown-toggle">
+                    <span class="pficon pficon-delete"></span>
+                </a>
+                 <a  ui-sref="root.settings.commands.edit({ id: command.id})" class="dropdown-toggle">
+                    <span class="pficon pficon-edit"></span>
+                </a>
+            </td>
+        </tr>
+    </tbody>
+</table>

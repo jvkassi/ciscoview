@@ -1,0 +1,19 @@
+<form role="form" ng-submit="edit()">
+    <div class="form-group">
+        <label for="nom">Nom</label>
+        <input required type="text" class="form-control" id="nom" placeholder="Enter nom" ng-model="equipment.name">
+    </div>
+    <div class="form-group">
+        <label for="ip">Addresse ip</label>
+        <input required type="text" class="form-control" id="ip" ng-model="equipment.ip" placeholder="Entrez l'ip">
+    </div>
+    <div class="form-group">
+        <label for="vendor">Vendeur</label>
+        <input required type="text" class="form-control" id="vendor" ng-model="equipment.vendor" placeholder="Entrez le vendeur">
+    </div>
+     <div class="form-group">
+        <label for="secret">secret</label>
+        <input required type="text" class="form-control" id="secret" ng-model="equipment.secret" placeholder="Entrez le secret">
+    </div>
+    <button type="submit" class="btn btn-default">Submit</button>
+</form>

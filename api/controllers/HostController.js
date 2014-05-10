@@ -17,8 +17,23 @@
 
 module.exports = {
     
-  
+    subscribe: function(req, res) {
+        console.log("subscribing..")
+        // Find all current users in the user model
+        Equipment.find(function found(err, users) {
+            if (err) return next(err);
 
+            // subscribe this socket to new create users
+            Equipment.watch(req.socket);
+
+            // subscribe this socket to existing users
+            Equipment.subscribe(req.socket, users);
+
+            // This will avoid a warning from the socket for trying to render
+            // html over the socket.
+            res.send(200);
+        });
+    },
 
   /**
    * Overrides for the settings in `config/controllers.js`

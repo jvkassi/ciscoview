@@ -1,0 +1,27 @@
+<div class="row">
+    <div class="col-sm-9 col-md-10 col-sm-push-3 col-md-push-2">
+        <div ui-view="settings@"></div>
+    </div>
+    <!-- /col -->
+    <div class="col-sm-3 col-md-2 col-sm-pull-9 col-md-pull-10 sidebar-pf sidebar-pf-left">
+        <ul class="nav nav-pills nav-stacked">
+            <li ng-class="{ active: $state.includes('root.settings.equipments')}">
+                <a ui-sref="root.settings.equipments.list">Equipements</a>
+            </li>
+            <li ng-class="{ active: $state.includes('root.settings.auths')}">
+                <a ui-sref="root.settings.auths.list">Authentifications</a>
+            </li>
+            <li ng-class="{ active: $state.includes('root.settings.commands')}">
+                <a ui-sref="root.settings.commands.list">Commandes</a>
+            </li>
+            <li ng-class="{ active: $state.includes('root.settings.users')}">
+                <a ui-sref="root.settings.users.list">Utilisateurs</a>
+            </li><li ng-class="{ active: $state.includes('root.settings.roles')}">
+                <a ui-sref="root.settings.roles.list">Roles</a>
+            </li>
+
+        </ul>
+    </div>
+    <!-- /col -->
+</div>
+<!-- /row -->

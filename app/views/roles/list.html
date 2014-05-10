@@ -1,0 +1,29 @@
+<!-- <div>
+    <table class="table">
+        <tr ng-repeat="user in users">
+            <td>{{user.name}}</td>
+            <td>{{user.email}}</td>
+            <td>{{user.online}}</td>
+        </tr>
+    </table>
+</div> -->
+<table ng-table="tableParams" show-filter="true" class="table">
+    <tbody>
+        <tr ng-repeat="role in $data">
+            <td data-title="'role'" filter="{ 'role': 'text' }" sortable="'role'">
+                {{role.name}}
+            </td>
+            <td data-title="'privilege'" sortable="'privilege'">
+                {{role.privilege}}
+            </td>
+            <td data-title="'action'">
+                <a ng-click="delete(role.id)" class="dropdown-toggle">
+                    <span class="pficon pficon-delete"></span>
+                </a>
+                <a ui-sref="root.settings.roles.edit({ id: role.id})" class="dropdown-toggle">
+                    <span class="pficon pficon-edit"></span>
+                </a>
+            </td>
+        </tr>
+    </tbody>
+</table>

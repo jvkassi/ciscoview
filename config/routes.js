@@ -30,7 +30,8 @@
 
   'get /api/sessions': 'SessionController.start',
   'post /api/sessions': 'SessionController.create',
-  'delete /api/sessions': 'SessionController.destroy',
+  'delete /api/sessions/:id?': 'SessionController.destroy',
+  // 'get /api/users/info': 'UserController.info',
   // 'get /apiosessions': 'SessionController.start',
   // 'get /users/:id?': 'UsersController.find',
   //  '/': {

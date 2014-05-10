@@ -8,17 +8,15 @@
 
 module.exports = {
 
-    tableName: 'users',
-    // connectio?n: 'mongo',
-
-    schema: true,
+    tableName : 'users',
+    // connection: 'mongo',
+    // schema: true,
     attributes: {
 
         name: {
             type: 'string',
             required: true
         },
-
         email: {
             type: 'string',
             required: true,
@@ -28,22 +26,21 @@ module.exports = {
         encryptedPassword: {
             type: 'string'
         },
-
         online: {
             type: 'boolean',
             defaultsTo: 'false'
         },
         role: {
-            type: 'string',
-            defaultsTo: 'user'
+            model: 'role',
+            // defaultsTo: 'user'
         },
-
-        // routers: {
-        //     collection: 'routers',
-        //     via: 'auth'
-        //     // type: 'string'
-        // },
-
+        auths: {
+            collection: 'auth',
+            via: 'user',
+            tableName: 'auths',
+            // type: 'model',
+            // alias: 'auth'
+        },
         toJSON: function() {
             var obj = this.toObject();
             delete obj.encryptedPassword;
@@ -56,11 +53,11 @@ module.exports = {
     beforeCreate: function(values, next) {
         // console.log('before')
         // This checks to make sure the password and password confirmation match before creating record
-        if (!values.password) {
-            return next({
-                err: ["Password doesn't match password confirmation."]
-            });
-        }
+        // if (!values.password) {
+        //     return next({
+        //         err: ["Password doesn't match password confirmation."]
+        //     });
+        // }
 
         require('bcrypt').hash(values.password, 10, function passwordEncrypted(err, encryptedPassword) {
             if (err) return next(err);
@@ -69,10 +66,10 @@ module.exports = {
             next();
         });
     },
-    afterUpdate: function(values, next) {
-        console.log(values);
-        User.publishUpdate(values.id, values);
-        next()
-    }
+    // afterUpdate: function(values, next) {
+    //     console.log(values);
+    //     User.publishUpdate(values.id, values);
+    //     next()
+    // }
 
 };

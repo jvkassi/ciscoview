@@ -1,0 +1,19 @@
+<table ng-table="tableParams" show-filter="true" class="table">
+    <tbody>
+        <tr ng-repeat="equipment in $data">
+            <!-- <tr ng-click="equipment.$selected = !equipment.$selected; changeSelection(equipment)" ng-class="{'active': equipment.$selected}" ng-repeat="equipment in $data"> -->
+
+            <td ui-sref-active="active" data-title="'Equipments'" filter="{ 'name': 'text' }" sortable="name">
+                <a ui-sref="root.shell.equipment({ id: equipment.id})">
+                    <span>{{equipment.name}}</span>
+                </a>
+            </td>
+        </tr>
+        <!-- <td data-title="'ip'">
+                    {{equipment.ip}}
+                </td>
+                <td data-title="'vendor'">
+                    {{equipment.vendor}}
+                </td> -->
+    </tbody>
+</table>

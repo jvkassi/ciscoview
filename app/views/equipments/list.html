@@ -1,0 +1,24 @@
+<span class="title">Equipments</span>
+<table ng-table="tableParams" show-filter="true" class="table">
+    <tbody>
+        <tr ng-repeat="equipment in $data">
+            <td data-title="'Name'" filter="{ 'name': 'text' }" sortable="name">
+                {{equipment.name}}
+            </td>
+            <td data-title="'ip'">
+                {{equipment.ip}}
+            </td>
+            <td data-title="'vendor'">
+                {{equipment.vendor}}
+            </td>
+            <td data-title="'action'">
+                <a ng-click="delete(equipment.id)" >
+                    <span class="pficon pficon-delete"></span>
+                </a>
+                <a ui-sref="root.settings.equipments.edit({ id: equipment.id})" >
+                    <span class="pficon pficon-edit"></span>
+                </a>
+            </td>
+        </tr>
+    </tbody>
+</table>

@@ -1,0 +1,18 @@
+<form class="form-inline" role="form" ng-submit="getInterfaces()">
+    <!-- {{router.ip}} {{router.name}} -->
+    <div class="form-group">
+        <select class="form-control" ng-model="auth">Yes
+            <option ng-repeat="auth in auths" ng-value="auth.id">{{auth.name}}</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-default">Lancer</button>
+</form>
+<ul class="nav nav-tabs nav-tabs-pf">
+    <li>
+        <a ng-click="statusInterface()" href="">Status</a>
+    </li>
+    <li ng-repeat="interface in interfaces">
+        <a ng-click="statusInterface(interface.Interface)">{{interface.Interface}}</a>
+    </li>
+</ul>
+<textarea style="width:100%;height: 80%" ng-model="output"></textarea>

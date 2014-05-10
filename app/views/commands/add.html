@@ -1,0 +1,13 @@
+<form role="form" ng-submit="add()">
+    <div class="form-group">
+        <label for="nom">Commande</label>
+        <input type="text" class="form-control" id="nom" placeholder="Enter nom" ng-model="command.name">
+    </div>
+    <div class="form-group">
+        <label for="nom">Role</label>
+        <select class="form-control" ng-model="command.role">
+            <option ng-repeat="role in roles" ng-value="role.id">{{role.name}}</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-default">Submit</button>
+</form>

@@ -133,9 +133,10 @@ module.exports = {
             res.send(200);
         });
     },
-    // info: function(req, res) {
-    //     User.findOne(req.socket.)
-    // },
+    info: function(req, res) {
+       delete req.session.User.encryptedPassword;
+       res.json(req.session.User);
+    },
 
     // destroy: function(req, res, next) {
 

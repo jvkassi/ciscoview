@@ -1,0 +1,20 @@
+<form role="form" ng-submit="add()">
+    <div class="form-group">
+        <label for="name">name</label>
+        <input type="text" class="form-control" id="name" ng-model="auth.name" placeholder="Enter name">
+    </div>
+    <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" class="form-control" id="username" ng-model="auth.username" placeholder="Enter username">
+    </div>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="text" class="form-control" id="password" ng-model="auth.password" placeholder="Entrez mot de passe">
+    </div>
+    <div class="form-group">
+        <label for="secret">Secret</label>
+        <input type="text" class="form-control" id="secret" ng-model="auth.secret" placeholder="Entrez le secret">
+    </div>
+    <button type="submit" class="btn btn-default">Valider</button>
+    <button type="canel" class="btn btn-default">Annuler</button>
+</form>
